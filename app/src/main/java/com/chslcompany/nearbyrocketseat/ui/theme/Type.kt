@@ -18,7 +18,7 @@ val rubikFontFamily = FontFamily(
 
 private const val activatePreview = true
 
-val Typography = Typography(
+val MyTypography = Typography(
     // "Title XI"
     headlineLarge = TextStyle(
         fontFamily = if (activatePreview) FontFamily.Default else rubikFontFamily,

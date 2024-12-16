@@ -45,7 +45,7 @@ fun NearbyRocketseatTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography,
+        typography = MyTypography,
         content = content
     )
 }
