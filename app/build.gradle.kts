@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.chslcompany.nearbyrocketseat"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.chslcompany.nearbyrocketseat"
