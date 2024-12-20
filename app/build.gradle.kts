@@ -1,6 +1,10 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -13,6 +17,19 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        val localProperties = rootProject.file("local.properties")
+        if(localProperties.exists()) {
+            val properties = Properties()
+            properties.load(FileInputStream(localProperties))
+            val apiKeyMaps = properties.getProperty("API_KEY_GOOGLE_MAPS") ?: ""
+            buildConfigField(
+                "String",
+                "API_KEY_MAPS",
+                "\"$apiKeyMaps\""
+            )
+            manifestPlaceholders["API_KEY_MAPS"] = apiKeyMaps
+        }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -38,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -50,6 +68,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.maps.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlin.serialization)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
