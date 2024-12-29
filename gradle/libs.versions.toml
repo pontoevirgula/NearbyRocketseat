@@ -12,6 +12,7 @@ mapsCompose = "4.3.3"
 coilCompose = "3.0.0-rc01"
 navigation = "2.8.5"
 kotlinSerialization = "1.6.1"
+ktorBom = "3.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,8 +33,22 @@ maps-compose = { group = "com.google.maps.android", name = "maps-compose", versi
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose"}
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization"}
+ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktorBom"}
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android"}
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging"}
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization"}
+ktor-client-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json"}
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
+[bundles]
+ktor-client = [
+    "ktor-client-android",
+    "ktor-client-content-negotiation",
+    "ktor-client-logging",
+    "ktor-client-serialization",
+    "ktor-client-serialization-json"
+]
