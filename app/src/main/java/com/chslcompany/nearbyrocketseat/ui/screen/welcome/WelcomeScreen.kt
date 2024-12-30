@@ -1,4 +1,4 @@
-package com.chslcompany.nearbyrocketseat.ui.screen
+package com.chslcompany.nearbyrocketseat.ui.screen.welcome
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

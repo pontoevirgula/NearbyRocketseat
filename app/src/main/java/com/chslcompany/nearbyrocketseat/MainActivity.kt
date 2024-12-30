@@ -16,8 +16,8 @@ import androidx.navigation.toRoute
 import com.chslcompany.nearbyrocketseat.data.model.NearbyMarket
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeScreen
 import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsScreen
-import com.chslcompany.nearbyrocketseat.ui.screen.SplashScreen
-import com.chslcompany.nearbyrocketseat.ui.screen.WelcomeScreen
+import com.chslcompany.nearbyrocketseat.ui.screen.splash.SplashScreen
+import com.chslcompany.nearbyrocketseat.ui.screen.welcome.WelcomeScreen
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeViewModel
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Home
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Splash
