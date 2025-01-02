@@ -15,13 +15,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.chslcompany.nearbyrocketseat.data.model.NearbyMarket
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeScreen
-import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsScreen
-import com.chslcompany.nearbyrocketseat.ui.screen.splash.SplashScreen
-import com.chslcompany.nearbyrocketseat.ui.screen.welcome.WelcomeScreen
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeViewModel
+import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsScreen
+import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsViewModel
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Home
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Splash
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Welcome
+import com.chslcompany.nearbyrocketseat.ui.screen.splash.SplashScreen
+import com.chslcompany.nearbyrocketseat.ui.screen.welcome.WelcomeScreen
 import com.chslcompany.nearbyrocketseat.ui.theme.NearbyRocketseatTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
             NearbyRocketseatTheme {
                 val navController = rememberNavController()
                 val homeViewModel by viewModels<HomeViewModel>()
+                val marketDetailsViewModel by viewModels<MarketDetailsViewModel>()
                 val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+                val marketDetailsUiState by marketDetailsViewModel.uiStateDetails.collectAsStateWithLifecycle()
                 NavHost(
                     navController = navController,
                     startDestination = Splash
@@ -67,6 +70,8 @@ class MainActivity : ComponentActivity() {
                         val selectedMarket = it.toRoute<NearbyMarket>()
                         MarketDetailsScreen(
                             market = selectedMarket,
+                            uiState = marketDetailsUiState,
+                            event = marketDetailsViewModel::onEventDetails,
                             onNavigateBack = {
                                 navController.popBackStack()
                             }

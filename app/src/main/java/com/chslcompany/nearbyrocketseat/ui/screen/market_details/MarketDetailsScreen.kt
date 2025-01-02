@@ -1,4 +1,4 @@
-package com.chslcompany.nearbyrocketseat.ui.screen
+package com.chslcompany.nearbyrocketseat.ui.screen.market_details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,14 +30,21 @@ import com.chslcompany.nearbyrocketseat.data.model.mock.mockMarkets
 import com.chslcompany.nearbyrocketseat.ui.components.button.NearbyButton
 import com.chslcompany.nearbyrocketseat.ui.components.market_details.NearbyMarketDetailsCoupons
 import com.chslcompany.nearbyrocketseat.ui.components.market_details.NearbyMarketDetailsInfos
+import com.chslcompany.nearbyrocketseat.ui.components.market_details.NearbyMarketDetailsRules
 import com.chslcompany.nearbyrocketseat.ui.theme.MyTypography
 
 @Composable
 fun MarketDetailsScreen(
     modifier: Modifier = Modifier,
     market: NearbyMarket,
+    uiState: MarketDetailsUiState,
+    event: (MarketDetailsUiEvent) -> Unit,
     onNavigateBack: () -> Unit
 ) {
+    LaunchedEffect(true) {
+        event(MarketDetailsUiEvent.OnFetchRules(marketId = market.id))
+    }
+
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -75,15 +83,19 @@ fun MarketDetailsScreen(
                 ) {
                     NearbyMarketDetailsInfos(market = market)
                     HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 24.dp)
                     )
-//                    if (market.couponsRules.isNotEmpty()) {
-//                        NearbyMarketDetailsRules(rules = market.couponsRules)
-//                        HorizontalDivider(
-//                            modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp)
-//                        )
-//                    }
-                    NearbyMarketDetailsCoupons(coupons = listOf("ABC12345"))
+                    if (!uiState.rules.isNullOrEmpty()) {
+                        NearbyMarketDetailsRules(rules = uiState.rules)
+                        HorizontalDivider(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp)
+                        )
+                    }
+                    if (!uiState.coupon.isNullOrEmpty()) {
+                        NearbyMarketDetailsCoupons(coupons = listOf(uiState.coupon))
+                    }
                 }
 
                 NearbyButton(
@@ -97,7 +109,9 @@ fun MarketDetailsScreen(
         }
 
         NearbyButton(
-            modifier = Modifier.align(Alignment.TopStart).padding(24.dp),
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(24.dp),
             iconRes = R.drawable.ic_arrow_left,
             onClick = onNavigateBack
         )
@@ -107,5 +121,9 @@ fun MarketDetailsScreen(
 @Preview
 @Composable
 private fun MarketDetailsScreenPreview() {
-    MarketDetailsScreen(market = mockMarkets.first(), onNavigateBack = {})
+    MarketDetailsScreen(
+        market = mockMarkets.first(),
+        event = {},
+        uiState = MarketDetailsUiState(),
+        onNavigateBack = {})
 }
