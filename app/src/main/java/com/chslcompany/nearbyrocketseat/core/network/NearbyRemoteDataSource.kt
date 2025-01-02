@@ -12,6 +12,8 @@ import io.ktor.client.request.patch
 object NearbyRemoteDataSource {
 
     private const val LOCAL_HOST_EMULATOR_BASE_URL = "http://10.0.2.2:3333"
+
+    //DIGITE ipconfig NO CMD E PEGUE O PRIMEIRO ipv4
     private const val LOCAL_HOST_PHYSICAL_BASE_URL = "http://SEU_SUB_DOMINIO_AQUI:3333"
 
     private const val BASE_URL = LOCAL_HOST_EMULATOR_BASE_URL

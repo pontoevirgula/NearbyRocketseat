@@ -39,6 +39,7 @@ fun MarketDetailsScreen(
     market: NearbyMarket,
     uiState: MarketDetailsUiState,
     event: (MarketDetailsUiEvent) -> Unit,
+    onNavigateToQRCodeScanner : () -> Unit,
     onNavigateBack: () -> Unit
 ) {
     LaunchedEffect(true) {
@@ -103,7 +104,7 @@ fun MarketDetailsScreen(
                         .fillMaxWidth()
                         .padding(top = 24.dp, bottom = 10.dp),
                     text = "Ler QR Code",
-                    onClick = { }
+                    onClick = onNavigateToQRCodeScanner
                 )
             }
         }
@@ -125,5 +126,6 @@ private fun MarketDetailsScreenPreview() {
         market = mockMarkets.first(),
         event = {},
         uiState = MarketDetailsUiState(),
+        onNavigateToQRCodeScanner = {},
         onNavigateBack = {})
 }

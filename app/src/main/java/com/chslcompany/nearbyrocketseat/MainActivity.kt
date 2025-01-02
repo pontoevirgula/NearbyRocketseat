@@ -17,8 +17,11 @@ import com.chslcompany.nearbyrocketseat.data.model.NearbyMarket
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeScreen
 import com.chslcompany.nearbyrocketseat.ui.screen.home.HomeViewModel
 import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsScreen
+import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsUiEvent
 import com.chslcompany.nearbyrocketseat.ui.screen.market_details.MarketDetailsViewModel
+import com.chslcompany.nearbyrocketseat.ui.screen.qrcode_scanner.QRCodeScannerScreen
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Home
+import com.chslcompany.nearbyrocketseat.ui.screen.route.QRCodeScanner
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Splash
 import com.chslcompany.nearbyrocketseat.ui.screen.route.Welcome
 import com.chslcompany.nearbyrocketseat.ui.screen.splash.SplashScreen
@@ -74,6 +77,23 @@ class MainActivity : ComponentActivity() {
                             event = marketDetailsViewModel::onEventDetails,
                             onNavigateBack = {
                                 navController.popBackStack()
+                            },
+                            onNavigateToQRCodeScanner = {
+                                navController.navigate(QRCodeScanner)
+                            }
+                        )
+                    }
+                    composable<QRCodeScanner> {
+                        QRCodeScannerScreen(
+                            onCompletedScan = { qrCodeContent ->
+                                if (qrCodeContent.isNotEmpty()) {
+                                    marketDetailsViewModel.onEventDetails(
+                                        MarketDetailsUiEvent.OnFetchCoupon(
+                                            qrCodeContent
+                                        )
+                                    )
+                                    navController.popBackStack()
+                                }
                             }
                         )
                     }
